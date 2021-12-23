@@ -31,3 +31,4 @@ dairyProductLists.sort((a,b) =>{
 console.log(dairyProductLists);
 
 // 連想配列でexpiryDateを書き換えて戻してみようか？
+// こそー
