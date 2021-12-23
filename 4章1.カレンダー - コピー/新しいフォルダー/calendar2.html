@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>4章課練習問題：カレンダーの作成</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h3 id=>4章練習問題：カレンダーの生成</h3>
+<hr>
+<div id="content">
+
+</div>
+<script type="text/javascript">
+'use strict'
+
+
+
+
+const now= new Date();
+const year=now.getFullYear();
+const month=now.getMonth()+1;
+const date=now.getDate();
+const weeks=now.getDay();
+
+console.log(weeks);
+
+let test = "";
+console.log(`${test}こんにちは`)
+
+const now2= new Date(year,month,0);
+console.log(now2);
+const now3 = now2.getDate();
+console.log(now3);
+
+const now4 = now3/7;
+const now5=Math.ceil(now4);
+console.log(now5);
+
+
+test += `<table>`
+
+let week=['日','月','火','水','木','金','土',];
+
+for(let week2 of week){
+	if(week2===week[0]){
+		console.log(`<tr>${week2}`);
+	}else if(week2===week[7]){
+		console.log(`${week2}</tr>`);
+	}
+	let week3 = `<td>${week2}</td>`;
+	console.log(week3);
+	let cal = document.getElementById("content").insertAdjacentHTML("beforeend",week3);
+}
+
+
+
+for(let i = 0 ; i <= now5 ; i++){
+	test += `<tr>`
+	for(let j = 1 ; j<=7;j++){
+	// console.log(i);
+	let nissuu= i*7+j;
+	if (nissuu<=now3){
+	test += `<td>${nissuu}</td>`;
+	}
+	}
+	test += `</tr>`
+}
+
+
+// for(let i = 0 ; i <= now5 ; i++){
+// 	test += `<tr>`
+// 	for(let j = 1 ; j<=7;j++){
+// 	// console.log(i);
+// 	test += `<td>${i*7+j}</td>`;
+// 	}
+// 	test += `</tr>`
+// }
+
+
+//if(nissuu<=0){
+	// 	cal += `<td></td>`;
+	// }
+
+// for(let i = 0 ; i <= now5 ; i++){
+// 	cal += `<tr>`
+// 	for(let j = 1 ; j<=7;j++){
+// 	// console.log(i);
+// 	cal += `<td>${i*7+j}</td>`;
+// 	}
+// 	cal += `</tr>`
+// }
+
+test += `</table>`
+
+console.log(test)
+
+
+
+let cal2 = document.getElementById("content").insertAdjacentHTML("beforeend",test);
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3章練習問題②</title>
+</head>
+<body>
+<h1>3章練習問題③：お酒の提供</h1>
+<div id="container">
+  
+</div>
+
+
+
+<script type="text/javascript" >
+'use strict'
+//復習
+const dataLists = [
+    { age:34, name:"佐藤"},
+    { age:11, name:"鈴木"},
+    { age:19, name:"高橋"},
+    { age:24, name:"田中"},
+    { age:102,name:"伊藤"},
+    { age:55, name:"渡辺"},
+    { age:20, name:"山本"},
+]
+
+let adult=3000;
+let adultAge=20;
+
+function takeAlchole(){
+for(let people of dataLists){
+    //console.log(people.age);
+    if(chekedAdt(people.age)){
+        console.log(`${people.name}にお酒提供`);
+    }
+}
+}
+function countPayment(){
+for(let people of dataLists){
+    if(chekedAdt(people.age)){
+        console.log(`${people.name}さんのお勘定は${adult}円`);
+    }else{
+        console.log(`${people.name}さんのお勘定は${adult/10}円`);
+}
+}
+}
+
+function chekedAdt(val){
+    if(val>=adultAge){
+    return true;
+    }else{
+        return false;
+    }
+}
+
+takeAlchole()
+countPayment()
+</script>
+</body>
+</html>

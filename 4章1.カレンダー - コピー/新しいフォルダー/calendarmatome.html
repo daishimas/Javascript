@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>4章課練習問題：カレンダーの作成</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<h3 id=>4章練習問題：カレンダーの生成</h3>
+<hr>
+<div id="content">
+
+</div>
+<script type="text/javascript">
+'use strict'
+
+//年月日月等の初期化及び取得
+const now= new Date();
+const year=now.getFullYear();
+const month=now.getMonth()+1;
+const date=now.getDate();
+const weeks=now.getDay();
+
+//カレンダーを入れる空要素設定
+let cal = "";
+
+//月末日数の設定
+const now2= new Date(year,month,0);
+const now3 = now2.getDate();
+
+//行数の設定
+const now4 = now3/7;
+const now5=Math.ceil(now4);
+
+//曜日の配列
+let week=['日','月','火','水','木','金','土'];
+
+cal += `<table><tr>`
+
+//年月の表示
+cal +=`<th class="nengetu" colspan="7" >${year}年${month}月</th></tr>`;
+
+//曜日の表示
+for(let week2 of week){
+	cal += `<th class="youbi">${week2}</th>`;
+}
+cal += `</tr>`
+
+//行と列の設定、日にちの表示、整理
+
+for(let i = 0 ; i <= now5-1 ; i++){//行数
+	cal += `<tr>`
+	for(let j = 1 ; j<=7;j++){//列数
+	// console.log(i);
+	let nissuu= i*7+j-(weeks); //日・曜合わせ
+	if(nissuu===date){
+		cal +=`<td class="honnjitu">${nissuu}</td>`;
+	}else if (nissuu<=now3 && nissuu>0){ //表示　日数が月末日以前かつ０より上の場合
+		cal += `<td>${nissuu}</td>`; //ひにちを表示
+	}else if(nissuu<=0 || nissuu>=now3){ //日にちが０以下の場合(マイナスの値が空白であってほしい)または、月末日を超える場合
+		cal += `<td></td>`; //空白を返す
+	}
+	}
+	cal += `</tr>`
+}
+
+cal += `</table>`
+
+//コンソールにて確認
+console.log(cal)
+
+//HTMLに排出
+let cal2 = document.getElementById("content").insertAdjacentHTML("beforeend",cal);
+
+</script>
+
+</body>
+</html>

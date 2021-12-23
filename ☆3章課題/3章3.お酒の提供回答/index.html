@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3章練習問題②</title>
+</head>
+<body>
+<h1>3章練習問題③：お酒の提供</h1>
+<div id="container">
+  
+</div>
+
+
+
+<script type="text/javascript">
+const dataLists =[ 
+    { age:34, name:"佐藤"},
+    { age:11, name:"鈴木"},
+    { age:19, name:"高橋"},
+    { age:24, name:"田中"},
+    { age:102,name:"伊藤"},
+    { age:55, name:"渡辺"},
+    { age:20, name:"山本"},
+]
+
+//1 for of で一人づつもってくる、さらに名前だけ抽出
+let adult=3000;
+let adultAge = 20;
+
+function takeAlcohol(){
+for(let people of dataLists){
+    if (checkAdult(people.age)){
+        console.log(`${people.name}さんにお酒を提供します。`);
+    }
+}
+}
+
+function countPayment(){
+for(let people of dataLists){
+    if (checkAdult(people.age)){
+        console.log(`${people.name}さんのお勘定は${adult}円です。`);
+    }else{
+        console.log(`${people.name}さんのお勘定は${adult/2}円です。`);
+    }
+}
+}
+
+function checkAdult(val){
+    if (val>=adultAge) {
+        return true;
+    } else{
+        return false; 
+    }
+}
+
+takeAlcohol();
+countPayment();
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>4章課練習問題：カレンダーの作成</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h3 id="aaa">4章練習問題：カレンダーの生成</h3>
+<hr>
+<div id="content"></div>
+<script type="text/javascript">
+'use strict'
+
+let week=['日','月','火','水','木','金','土'];
+
+//console.log(week);
+
+window.document.write("<h3>",week,"曜日ですよ</h3>");
+for(let youbi of week){
+	console.log(youbi);
+}
+
+const now= new Date();
+const year=now.getFullYear();
+const month=now.getMonth()+1;
+const date=now.getDate();
+const weeks=now.getDay();
+
+console.log(weeks);
+/*let weeks=weeks2
+if(weeks2===5){
+	console.log('金曜日');
+}else{
+	cpnsole.log('月曜日');
+}*/
+let test = "";
+console.log(`${test}こんにちは`)
+
+const now2= new Date(year,month,0);
+console.log(now2);
+const now3 = now2.getDate();
+console.log(now3);
+
+for(let i = 1 ; i <= now3 ; i++){
+	// console.log(i);
+	test += `<p>${i}日</p>`
+}
+console.log(test)
+let cal = document.getElementById("content").insertAdjacentHTML("beforeend",test);
+	//cal.insertAdjacentHTML("beforeend",test)
+// console.log(h3);
+
+//const nowMonth = now2.getDate();
+//console.log(nowMonth)
+
+
+
+//const hiduke=`${year}/${month}/${date}`
+//window.document.write("<h3>",year,month,date,"</h3>");
+
+//window.document.write("<h3>",hiduke,"</h3>");
+
+
+/*const now3= new Date(year,2,0);
+console.log(now3)
+const nowMonth = now3.getDate();
+console.log(nowMonth)
+while(nowMonth<=31){
+	console.log(nowMonth);
+	window.document.write("<h4>",day,"</h4>");
+	day+=1;
+}
+
+/*このやり方ではない
+let day=1;
+while(day<=31){
+	console.log(day);
+	window.document.write("<h4>",day,"</h4>");
+	day+=1;
+}*/
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3章練習問題②</title>
+</head>
+<body>
+<h1>3章練習問題②：BMIの計算</h1>
+<div id="container">
+  
+</div>
+
+
+
+<script type="text/javascript">
+'use strict'
+
+function calcBMI(height,weight){
+height/=100;
+let BMI=weight/height**2;
+console.log(`身長 ${height*100} cm , 体重 ${weight} のBMIは${BMI.toFixed(2)}です。`);
+if (BMI>=30){
+    console.log('生活を見直しましょう。');
+}else if(25<=BMI && BMI<30){
+    console.log('運動を始めましょう。');
+}else if(18.5<=BMI && BMI<25){
+    console.log('ちょうどいいですね。');
+}else{
+    console.log('スリムですね。');
+}
+}
+
+calcBMI(170,50);
+calcBMI(160,50);
+calcBMI(140,50);
+calcBMI(120,50);
+</script>
+</body>
+</html>

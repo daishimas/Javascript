@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>4章課練習問題：カレンダーの作成</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h3 id=>4章練習問題：カレンダーの生成</h3>
+<hr>
+<div id="content">
+
+</div>
+<script type="text/javascript">
+'use strict'
+
+const now= new Date();
+const year=now.getFullYear();
+const month=now.getMonth()+1;
+const date=now.getDate();
+const weeks=now.getDay();
+
+
+let cal = "";
+
+const now2= new Date(year,month,0);
+const now3 = now2.getDate();
+
+const now4 = now3/7;
+const now5=Math.ceil(now4);
+
+let week=['日','月','火','水','木','金','土'];
+
+cal += `<table><tr>`
+
+cal +=`<th class="nengetu" colspan="7" >${year}年${month}月</th></tr>`;
+
+for(let week2 of week){
+	cal += `<th class="youbi">${week2}</th>`;
+}
+cal += `</tr>`
+
+let now6=now5;
+if(month!==10){
+	now6=now5-1;
+}
+
+for(let i = 0 ; i <= now6 ; i++){
+	cal += `<tr>`
+	for(let j = 1 ; j<=7;j++){
+	let nissuu= i*7+j-(weeks); 	if(nissuu===date){
+		cal +=`<td class="honnjitu">${nissuu}</td>`;
+	}else if (nissuu<=now3 && nissuu>0){
+		cal += `<td>${nissuu}</td>`; 
+	}else if(nissuu<=0 || nissuu>=now3){
+		cal += `<td></td>`; 
+	}
+	}
+	cal += `</tr>`
+}
+
+cal += `</table>`
+
+console.log(cal)
+
+let cal2 = document.getElementById("content").insertAdjacentHTML("beforeend",cal);
+
+</script>
+
+</body>
+</html>

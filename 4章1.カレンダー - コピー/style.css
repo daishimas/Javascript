@@ -1,0 +1,40 @@
+table {
+	border: 1px solid #333333;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+	text-align: center;
+	width: 450px;
+	height: 300px;
+}
+
+tr {
+	border-bottom: solid 1px black;
+}
+
+th {
+	border-right: solid 1px black;
+}
+
+.youbi:nth-of-type(1){
+	color: red;
+}
+
+th:nth-of-type(7){
+	color: blue;
+}
+
+td {
+	border-right: solid 1px black;
+}
+
+td:nth-of-type(1){
+	color: red;
+}
+
+td:nth-of-type(7){
+	color: blue;
+}
+
+.honnjitu{
+	background-color: pink;
+}
