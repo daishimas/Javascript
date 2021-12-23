@@ -24,11 +24,30 @@ const dairyProductLists =[{
 // dairyProductLists
 
 // 昇順に並べたが日付がおかしい。
-dairyProductLists.sort((a,b) =>{
-  if(a.expiryDate > b.expiryDate) return 1;
-  if(a.expiryDate < b.expiryDate) return -1;
-});
-console.log(dairyProductLists);
+// dairyProductLists.sort((a,b) =>{
+//   if(a.expiryDate > b.expiryDate) return 1;
+//   if(a.expiryDate < b.expiryDate) return -1;
+// });
+// console.log(dairyProductLists);
 
 // 連想配列でexpiryDateを書き換えて戻してみようか？
-//kokonso-rurururureuru are?areare?
+// for (let kari of dairyProductLists[0].expiryDate){
+//   console.log(kari);
+// }
+
+let kari=dairyProductLists.map((value)=>value.expiryDate);
+console.log(kari);
+for(let kari2 of kari){
+  //console.log(kari2);
+  kari3=String(kari2);
+  console.log(kari3);
+}
+
+console.log(kari[3]);
+
+
+
+// let kari2 = dairyProductLists.splice();
+// console.log(dairyProductLists[0].expiryDate);
+// console.log(dairyProductLists[1].expiryDate);
+// console.log(dairyProductLists[2].expiryDate);
