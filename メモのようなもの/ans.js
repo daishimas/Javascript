@@ -25,29 +25,80 @@ const dairyProductLists =[{
 
 // 昇順に並べたが日付がおかしい。
 // dairyProductLists.sort((a,b) =>{
-//   if(a.expiryDate > b.expiryDate) return 1;
-//   if(a.expiryDate < b.expiryDate) return -1;
+//   if(a.expiryDate > b.expiryDate) return 1;//正の数（+）の場合
+//   if(a.expiryDate < b.expiryDate) return -1;//負の数（-）の場合
 // });
 // console.log(dairyProductLists);
 
 // 連想配列でexpiryDateを書き換えて戻してみようか？
 // for (let kari of dairyProductLists[0].expiryDate){
 //   console.log(kari);
+// }書き換えではなくて、日付の型にするが正解
+
+// let kari=dairyProductLists.map((value)=>value.expiryDate);
+// console.log(kari);
+// for(let kari2 of kari){
+//   //console.log(kari2);
+ 
 // }
 
-let kari=dairyProductLists.map((value)=>value.expiryDate);
-console.log(kari);
-for(let kari2 of kari){
-  //console.log(kari2);
-  kari3=String(kari2);
-  console.log(kari3);
+// console.log(kari[3]);
+
+
+// dairyProductLists.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate))
+
+// for(day of dairyProductLists){
+//   // console.log(day.expiryDate)
+// }
+
+// let cnt=0;
+// for(let aaa of dairyProductLists){
+//   dairyProductLists[cnt].kakeru10id =  aaa.productId * 10;
+//   cnt++;
+// }
+// for(bbb of dairyProductLists){
+//   // console.log(bbb.kakeru10id)
+// }
+
+
+// 例）学生たちの名簿
+//名簿を作るため、配列の中にオブジェクトでデータをまとめる「students」
+let students = [{
+  name:"takashi",
+  math:10,
+  english:20,
+  chemistry:98,
+ },{
+  name:"hanako",
+  math:50,
+  english:85,
+  chemistry:45,
+ }];
+
+//コンソールで学生情報を確認
+console.log(students[0].name,students[0].english);
+console.log(students[1].name,students[1].english);
+
+//「students」新しく太郎のデータを追加する
+students.push({name:"taro", math:50,english:75,chemistry:45,})
+//コンソールで太郎が追加された学生情報を確認
+console.log(students)
+
+//学生情報に学生達の平均点を追加したいのでforで回しながら名簿に追加
+for(student of students){
+  student.average = (student.math + student.english + student.chemistry)/3
+  console.log(student);//各学生の平均点が追加されているか確認
 }
+//名簿に平均点が追加されているか確認
+console.log(students);
 
-console.log(kari[3]);
+//上記「students」原本のコピー。データ名は「lankedStudents」。それを加工する
+let lankedStudents = JSON.parse(JSON.stringify(students));
 
+//「lankedStudents」を昇順にソートする（原本をソートすると、データがソートしたままになってしまう。後々追加の作業が、面倒になるため）
+lankedStudents = lankedStudents.sort((a,b)=> b.average - a.average)
+//ソートした「lankedStudents」の確認
+console.log(lankedStudents);
 
-
-// let kari2 = dairyProductLists.splice();
-// console.log(dairyProductLists[0].expiryDate);
-// console.log(dairyProductLists[1].expiryDate);
-// console.log(dairyProductLists[2].expiryDate);
+// students.forEach(student => student.average = (student.math + student.english + student.chemistry)/3)
+// console.log(students)
