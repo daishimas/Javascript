@@ -23,32 +23,17 @@ const dairyProductLists =[{
 
 // dairyProductLists
 
-// 昇順に並べたが日付がおかしい。
-// dairyProductLists.sort((a,b) =>{
-//   if(a.expiryDate > b.expiryDate) return 1;//正の数（+）の場合
-//   if(a.expiryDate < b.expiryDate) return -1;//負の数（-）の場合
-// });
-// console.log(dairyProductLists);
+//データを複製
+let expiryDateshoujun = JSON.parse(JSON.stringify(dairyProductLists));
+console.log(expiryDateshoujun);
 
-// 連想配列でexpiryDateを書き換えて戻してみようか？
-// for (let kari of dairyProductLists[0].expiryDate){
-//   console.log(kari);
-// }書き換えではなくて、日付の型にするが正解
-
-// let kari=dairyProductLists.map((value)=>value.expiryDate);
-// console.log(kari);
-// for(let kari2 of kari){
-//   //console.log(kari2);
- 
-// }
-
-// console.log(kari[3]);
-
-
-// dairyProductLists.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate))
+//new Dateで型の変形、並び替え
+expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate));
+//確認
+console.log(dairyProductLists);
 
 // for(day of dairyProductLists){
-//   // console.log(day.expiryDate)
+// console.log(day.expiryDate)
 // }
 
 // let cnt=0;
@@ -61,45 +46,60 @@ const dairyProductLists =[{
 // }
 
 
-// 例）学生たちの名簿
-//名簿を作るため、配列の中にオブジェクトでデータをまとめる「students」
-let students = [{
-  name:"takashi",
-  math:10,
-  english:20,
-  chemistry:98,
- },{
-  name:"hanako",
-  math:50,
-  english:85,
-  chemistry:45,
- }];
+// // 例）学生たちの名簿
+// //名簿を作るため、配列の中にオブジェクトでデータをまとめる「students」
+// let students = [{
+//   name:"takashi",
+//   math:10,
+//   english:20,
+//   chemistry:98,
+//  },{
+//   name:"hanako",
+//   math:50,
+//   english:85,
+//   chemistry:45,
+//  }];
 
-//コンソールで学生情報を確認
-console.log(students[0].name,students[0].english);
-console.log(students[1].name,students[1].english);
+// //コンソールで学生情報を確認
+// console.log(students[0].name,students[0].english);
+// console.log(students[1].name,students[1].english);
 
-//「students」新しく太郎のデータを追加する
-students.push({name:"taro", math:50,english:75,chemistry:45,})
-//コンソールで太郎が追加された学生情報を確認
-console.log(students)
+// //「students」新しく太郎のデータを追加する
+// students.push({name:"taro", math:50,english:75,chemistry:45,})
+// //コンソールで太郎が追加された学生情報を確認
+// console.log(students)
 
-//学生情報に学生達の平均点を追加したいのでforで回しながら名簿に追加
-for(student of students){
-  student.average = (student.math + student.english + student.chemistry)/3
-  student.houka=" 良かった";
-  console.log(student);//各学生の平均点が追加されているか確認
-}
-//名簿に平均点が追加されているか確認
-console.log(students);
+// //学生情報に学生達の平均点を追加したいのでforで回しながら名簿に追加
+// for(student of students){
+//   student.average = (student.math + student.english + student.chemistry)/3
+//   student.houka=" 良かった";
+//   console.log(student);//各学生の平均点が追加されているか確認
+// }
+// //名簿に平均点が追加されているか確認
+// console.log(students);
 
-//上記「students」原本のコピー。データ名は「lankedStudents」。それを加工する
-let lankedStudents = JSON.parse(JSON.stringify(students));
+// //上記「students」原本のコピー。データ名は「lankedStudents」。それを加工する
+// let lankedStudents = JSON.parse(JSON.stringify(students));
 
-//「lankedStudents」を昇順にソートする（原本をソートすると、データがソートしたままになってしまう。後々追加の作業が、面倒になるため）
-lankedStudents = lankedStudents.sort((a,b)=> b.average - a.average)
-//ソートした「lankedStudents」の確認
-console.log(lankedStudents);
+// //「lankedStudents」を昇順にソートする（原本をソートすると、データがソートしたままになってしまう。後々追加の作業が、面倒になるため）
+// lankedStudents = lankedStudents.sort((a,b)=> b.average - a.average)
+// //ソートした「lankedStudents」の確認
+// console.log(lankedStudents);
 
+//その他やり方（foreach）
 // students.forEach(student => student.average = (student.math + student.english + student.chemistry)/3)
 // console.log(students)
+
+
+
+// 昇順に並べたが日付がおかしい。
+// dairyProductLists.sort((a,b) =>{
+//   if(a.expiryDate > b.expiryDate) return 1;//正の数（+）の場合
+//   if(a.expiryDate < b.expiryDate) return -1;//負の数（-）の場合
+// });
+// console.log(dairyProductLists);
+
+// 連想配列でexpiryDateを書き換えて戻してみようか？
+// for (let kari of dairyProductLists[0].expiryDate){
+//   console.log(kari);
+// }書き換えではなくて、日付の型にするが正解
