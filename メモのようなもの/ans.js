@@ -87,6 +87,7 @@ console.log(students)
 //学生情報に学生達の平均点を追加したいのでforで回しながら名簿に追加
 for(student of students){
   student.average = (student.math + student.english + student.chemistry)/3
+  student.houka=" 良かった";
   console.log(student);//各学生の平均点が追加されているか確認
 }
 //名簿に平均点が追加されているか確認
