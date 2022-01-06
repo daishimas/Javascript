@@ -22,26 +22,25 @@ const dairyProductLists =[{
 ];
 const NOWDATE = "2021/10/1";
 
-// //試しに消したりするように
-// function printSalePage(){
-//     dairyProductLists.forEach(ele => container.insertAdjacentHTML('beforeend',`
-//     <div class="itembox">
-//     <div class="box-left">
-//     <p>${ele.productCategory}</p>
-//     <img src="${ele.src}">
-//     </div>
-//     <div class="box-right">
-//     <h2>${ele.productName}</h2>
-//     <span>価格：${ele.productPrice}円</span>
-//     <form>
-//         <label for="Purchase-number">個数</label>
-//         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-//         <input class="btn" type="submit" onclick="" value="購入する">
-//     </form>
-//     <p>${ele.comment}</p>
-//     </div>
-//     </div>`));
-// }
+function printSalePage(){
+    dairyProductLists.forEach(ele => container.insertAdjacentHTML('beforeend',`
+    <div class="itembox">
+    <div class="box-left">
+    <p>${ele.productCategory}</p>
+    <img src="${ele.src}">
+    </div>
+    <div class="box-right">
+    <h2>${ele.productName}</h2>
+    <span>価格：${ele.productPrice}円</span>
+    <form>
+        <label for="Purchase-number">個数</label>
+        <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
+        <input class="btn" type="submit" onclick="" value="購入する">
+    </form>
+    <p>${ele.comment}</p>
+    </div>
+    </div>`));
+}
 
 //問題１
 //消費期限(expiryDate)が近いものから順番に並べ替えて表示する関数printExpirySale()を作成してください。
@@ -56,7 +55,9 @@ expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate))
 //確認
 console.log(expiryDateshoujun);
 
-//試し、クリックして表示させる→イベントか
+// コンテナーにぶち込んでいるが、HTMLの賞味期限順にするというボタンを押して表示させるようにしたい
+//HTMLのonclickとは何ぞ？→クリックしたら表示される
+//クリック後、表示が追加でされるので既存のものを非表示にするがやり方は？ちなみにhtmlでsortになっているが
 function printExpirySale(){
     expiryDateshoujun.forEach(ele => container.insertAdjacentHTML('beforeend',`
     <div class="itembox">
@@ -97,5 +98,4 @@ function printExpirySale(){
 //HTMLのボタンに割り当てること。
 
 
-//printSalePage()
-printExpirySale()
+printSalePage()
