@@ -41,6 +41,7 @@ function printSalePage(){
     </div>
     </div>`));
 }
+printSalePage()
 
 //問題１
 //消費期限(expiryDate)が近いものから順番に並べ替えて表示する関数printExpirySale()を作成してください。
@@ -48,6 +49,7 @@ function printSalePage(){
 
 //データを複製
 let expiryDateshoujun = JSON.parse(JSON.stringify(dairyProductLists));
+//確認
 console.log(expiryDateshoujun);
 
 //new Dateで型の変形、並び替え
@@ -55,10 +57,23 @@ expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate))
 //確認
 console.log(expiryDateshoujun);
 
-// コンテナーにぶち込んでいるが、HTMLの賞味期限順にするというボタンを押して表示させるようにしたい
-//HTMLのonclickとは何ぞ？→クリックしたら表示される
+
+//HTMLのonclickとは何ぞ？→クリックしたら属性値の関数が表示される
 //クリック後、表示が追加でされるので既存のものを非表示にするがやり方は？ちなみにhtmlでsortになっているが
+//切替という発想ではなく、先にあるものを「消して」から賞味期限順を「追加」する
+
 function printExpirySale(){
+
+    //子要素を削除する関数を作る
+    function deleteSalePage(){
+        let ele = document.getElementById("container")
+        while( ele.firstChild ){
+            ele.removeChild( ele.firstChild );
+          }
+    }
+    
+    deleteSalePage();
+
     expiryDateshoujun.forEach(ele => container.insertAdjacentHTML('beforeend',`
     <div class="itembox">
     <div class="box-left">
@@ -82,6 +97,37 @@ function printExpirySale(){
 //順番を並び替えた状態から元に戻せるようにしてください。
 //HTMLのボタンに割り当てること。
 
+function motonimodosu(){
+
+    //子要素を削除する関数を作る
+    function deleteSalePage(){
+        let ele = document.getElementById("container")
+        while( ele.firstChild ){
+            ele.removeChild( ele.firstChild );
+          }
+    }
+    
+    deleteSalePage();
+
+    dairyProductLists.forEach(ele => container.insertAdjacentHTML('beforeend',`
+    <div class="itembox">
+    <div class="box-left">
+    <p>${ele.productCategory}</p>
+    <img src="${ele.src}">
+    </div>
+    <div class="box-right">
+    <h2>${ele.productName}</h2>
+    <span>価格：${ele.productPrice}円</span>
+    <form>
+        <label for="Purchase-number">個数</label>
+        <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
+        <input class="btn" type="submit" onclick="" value="購入する">
+    </form>
+    <p>${ele.comment}</p>
+    </div>
+    </div>`));
+}
+
 //問題3
 //消費期限順に並び変えた上で、消費期限が3日以内の商品は半額、一週間以内のものは2割引きとして表示しなおす関数を作成してください。
 //また、半額、2割引きになったことを表示するようにしてください。今日は2021年10月1日とします。
@@ -96,6 +142,3 @@ function printExpirySale(){
 //それぞれの商品で入力した個数を基に合計金額を算出する関数を作成してください。
 //在庫以上の注文についてはアラートを表示し、ユーザーに注意喚起するようにしてください。
 //HTMLのボタンに割り当てること。
-
-
-printSalePage()
