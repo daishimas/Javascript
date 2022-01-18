@@ -118,13 +118,28 @@ function motonimodosu(){
     <form>
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit" onclick="" value="購入する">
+        <input class="btn" type="submit" onclick="buttonClick()" value="購入する">
     </form>
     <p>${ele.comment}</p>
     </div>
     </div>`));  
+//ボタンを押して反応しない
+    function buttonClick(){
+    console.log('テスト');
 }
+//入力された個数を取得して、アラートに反映させたい
+    const kosuu = document.getElementById('Purchase-number${ele.productId}');
+    window.alert(kosuu);
+}
+
+//試しに「まとめて購入ボタン」にてテスト→ごちゃつくので1/19削除,htmlも忘れずに。
+// function test(){
+//     window.alert('テスト');
+// }
  
+
+
+
 //問題3
 //消費期限順に並び変えた上で、消費期限が3日以内の商品は半額、一週間以内のものは2割引きとして表示しなおす関数を作成してください。
 //また、半額、2割引きになったことを表示するようにしてください。今日は2021年10月1日とします。
