@@ -49,49 +49,46 @@ printSalePage()
 
 //データを複製
 let expiryDateshoujun = JSON.parse(JSON.stringify(dairyProductLists));
-//確認
-console.log(expiryDateshoujun);
+// console.log(expiryDateshoujun);
 
 //new Dateで型の変形、並び替え
 expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate));
-//確認
-console.log(expiryDateshoujun);
+//  console.log(expiryDateshoujun);
 
+// HTMLのonclickとは何ぞ？→クリックしたら属性値の関数が表示される
+// クリック後、表示が追加でされるので既存のものを非表示にするがやり方は？ちなみにhtmlでsortになっているが
+// 切替という発想ではなく、先にあるものを「消して」から賞味期限順を「追加」する
 
-//HTMLのonclickとは何ぞ？→クリックしたら属性値の関数が表示される
-//クリック後、表示が追加でされるので既存のものを非表示にするがやり方は？ちなみにhtmlでsortになっているが
-//切替という発想ではなく、先にあるものを「消して」から賞味期限順を「追加」する
+// function printExpirySale(){
 
-function printExpirySale(){
-
-    //子要素を削除する関数を作る
-    function deleteSalePage(){
-        let ele = document.getElementById("container")
-        while( ele.firstChild ){
-            ele.removeChild( ele.firstChild );
-          }
-    }
+//     //子要素を削除する関数を作る
+//     function deleteSalePage(){
+//         let ele = document.getElementById("container")
+//         while( ele.firstChild ){
+//             ele.removeChild( ele.firstChild );
+//           }
+//     }
     
-    deleteSalePage();
+//     deleteSalePage();
 
-    expiryDateshoujun.forEach(ele => container.insertAdjacentHTML('beforeend',`
-    <div class="itembox">
-    <div class="box-left">
-    <p>${ele.productCategory}</p>
-    <img src="${ele.src}">
-    </div>
-    <div class="box-right">
-    <h2>${ele.productName}</h2>
-    <span>価格：${ele.productPrice}円</span>
-    <form>
-        <label for="Purchase-number">個数</label>
-        <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit" onclick="" value="購入する">
-    </form>
-    <p>${ele.comment}</p>
-    </div>
-    </div>`));
-}
+//     expiryDateshoujun.forEach(ele => container.insertAdjacentHTML('beforeend',`
+//     <div class="itembox">
+//     <div class="box-left">
+//     <p>${ele.productCategory}</p>
+//     <img src="${ele.src}">
+//     </div>
+//     <div class="box-right">
+//     <h2>${ele.productName}</h2>
+//     <span>価格：${ele.productPrice}円</span>
+//     <form>
+//         <label for="Purchase-number">個数</label>
+//         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
+//         <input class="btn" type="submit" onclick="" value="購入する">
+//     </form>
+//     <p>${ele.comment}</p>
+//     </div>
+//     </div>`));
+// }
 
 //問題2
 //順番を並び替えた状態から元に戻せるようにしてください。
@@ -125,18 +122,147 @@ function motonimodosu(){
     </form>
     <p>${ele.comment}</p>
     </div>
-    </div>`));
+    </div>`));  
 }
-
+ 
 //問題3
 //消費期限順に並び変えた上で、消費期限が3日以内の商品は半額、一週間以内のものは2割引きとして表示しなおす関数を作成してください。
 //また、半額、2割引きになったことを表示するようにしてください。今日は2021年10月1日とします。
-//HTMLのチェックボックスに割り当てること。
+//HTMLのチェックボックスに割り当てること。      
+//ヒント→賞味期限から本日の日付10/1を引いて、3日、週間を出してからifで判断
+
+//本日日付を文字列から型変換(ミリ秒変換)
+//const NOWDATE = "2021/10/1";
+let newdate2 = +new Date(NOWDATE);
+//console.log(newdate2);
+
+//以下試し
+//賞味期限をミリ秒変換（試し）
+// let kusaruhi = expiryDateshoujun[1].expiryDate;
+// let kusaruhi2 = Date.parse(kusaruhi)
+// console.log(kusaruhi2)
+
+//賞味期限から本日日付を引く
+// const zann = (kusaruhi2 - newdate2)/86400000;
+// console.log(zann)
+
+//ifで条件分岐（試し）
+// if(zann<=3){
+//     window.alert('じゃじゃまる～ピッコロ～ポーロ～リ～');
+// }
+
+function printExpirySale(){
+
+    //子要素を削除する関数を作る
+    function deleteSalePage(){
+        let ele = document.getElementById("container")
+        while( ele.firstChild ){
+            ele.removeChild( ele.firstChild );
+          }
+    }
+    
+    deleteSalePage();
+
+    for(let kari of expiryDateshoujun){
+        //console.log(kari.expiryDate);
+    
+        let kusaruhi = kari.expiryDate;
+        let kusaruhi2 = Date.parse(kusaruhi);
+        //console.log(kusaruhi2)
+        const zann = (kusaruhi2 - newdate2)/86400000;
+        //let hanngaku=kari.productPrice/2;
+        //let hanngaku2=parseInt(hanngaku);
+        if(zann<=3){
+            document.getElementById('container').insertAdjacentHTML('beforeend',`
+            <div class="itembox">
+            <div class="box-left">
+            <p>${kari.productCategory}</p>
+            <img src="${kari.src}">
+            </div>
+            <div class="box-right">
+            <h2>${kari.productName}</h2>    
+            <span>価格：<s>${kari.productPrice}</s>　${Math.floor(kari.productPrice/2)}円 <mark>半額！</mark></span>    
+            <form>
+                <label for="Purchase-number">個数</label>
+                <input type="text" class="Purchase-number" id="Purchase-number${kari.productId}" name="Purchase-number">
+                <input class="btn" type="submit" onclick="" value="購入する">
+            </form>
+            <p>${kari.comment}</p>
+            </div>
+            </div>`);
+        }else if(zann<=7){
+            document.getElementById('container').insertAdjacentHTML('beforeend',`
+            <div class="itembox">
+            <div class="box-left">
+            <p>${kari.productCategory}</p>
+            <img src="${kari.src}">
+            </div>
+            <div class="box-right">
+            <h2>${kari.productName}</h2>    
+            <span>価格：<s>${kari.productPrice}</s>　${Math.floor(kari.productPrice*0.8)}円 <mark>2割引！</mark></span>    
+            <form>
+                <label for="Purchase-number">個数</label>
+                <input type="text" class="Purchase-number" id="Purchase-number${kari.productId}" name="Purchase-number">
+                <input class="btn" type="submit" onclick="" value="購入する">
+            </form>
+            <p>${kari.comment}</p>
+            </div>
+            </div>`);  
+        }else{
+            document.getElementById('container').insertAdjacentHTML('beforeend',`
+            <div class="itembox">
+            <div class="box-left">
+            <p>${kari.productCategory}</p>
+            <img src="${kari.src}">
+            </div>
+            <div class="box-right">
+            <h2>${kari.productName}</h2>    
+            <span>価格：${kari.productPrice}円</span>    
+            <form>
+                <label for="Purchase-number">個数</label>
+                <input type="text" class="Purchase-number" id="Purchase-number${kari.productId}" name="Purchase-number">
+                <input class="btn" type="submit" onclick="" value="購入する">
+            </form>
+            <p>${kari.comment}</p>
+            </div>
+            </div>`);  
+        }
+    }
+
+    // expiryDateshoujun.forEach(ele =>container.insertAdjacentHTML('beforeend',`
+    // <div class="itembox">
+    // <div class="box-left">
+    // <p>${ele.productCategory}</p>
+    // <img src="${ele.src}">
+    // </div>
+    // <div class="box-right">
+    // <h2>${ele.productName}</h2>    
+    // <span>価格：${ele.productPrice}円</span>    
+    // <form>
+    //     <label for="Purchase-number">個数</label>
+    //     <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
+    //     <input class="btn" type="submit" onclick="" value="購入する">
+    // </form>
+    // <p>${ele.comment}</p>
+    // </div>
+    // </div>`));
+}
+
+//予備2forで配列のオブジェクトのプロパティ呼び出し
+// console.log(expiryDateshoujun[0].expiryDate)
+// for(let kari of expiryDateshoujun){
+//      console.log(kari.expiryDate);
+// }
 
 //問題4
-//購入ボタンを押すことで商品を購入する関数を作成してください。
-//在庫以上の注文についてはアラートを表示し、ユーザーに注意喚起するようにしてください。
-//また、価格の横に在庫数の欄を新しく設けてください。
+//購入ボタンを押すことで商品を購入する関数を作成してください。Q1表示方法　
+//押すとアラートメッセージが出て,
+//何を何個合計いくらです購入しますか？はい　いいえ→はい→購入しました。いいえは終了。
+//在庫以上の注文についてはアラートを表示し、ユーザーに注意喚起するようにしてください。q2数値のみ入力で、在庫以上の数字だったらアラート出るようにする
+//また、価格の横に在庫数の欄を新しく設けてください。q3在庫と入力数は連動するか
+
+
+
 
 //問題5
 //それぞれの商品で入力した個数を基に合計金額を算出する関数を作成してください。
