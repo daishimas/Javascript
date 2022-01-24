@@ -43,6 +43,12 @@ function printSalePage(){
 
 }
 
+function buttonClick(){
+    let kosuu =document.getElementById('Purchase-number${ele.productId}');
+    let kari5 =kosuu.Value;
+    window.alert('test');
+};
+
 //問題4
 //購入ボタンを押すことで商品を購入する関数を作成してください。Q1表示方法　
 //押すとアラートメッセージが出て,
@@ -51,9 +57,12 @@ function printSalePage(){
 //また、価格の横に在庫数の欄を新しく設けてください。q3在庫と入力数は連動するか
 
 //ボタンクリックして反応あり
-function buttonClick(){
-    alert('テスト');
-};
+// function buttonClick(){
+//     let kosuu =document.getElementById('Purchase-number${ele.productId}');
+//     let kari5 =kosuu.Value;
+//     window.alert('kari5');
+// };
+//テキストの数値を反映させたい
 
 
 
