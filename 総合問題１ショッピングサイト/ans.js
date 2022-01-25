@@ -35,18 +35,28 @@ function printSalePage(){
     <form>
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit" onclick="buttonClick()" value="購入する">
+        <input class="btn" type="submit" id="test" onclick="buttonClick()" value="購入する">
     </form>
     <p>${ele.comment}</p>
     </div>
     </div>`));
-
 }
 
+//38行目がヒント
+
+//38行にid追加
+// function buttonClick(){
+//     let kosuu =document.getElementById('test');
+//     window.alert('test');
+// };
+
+//.forms
 function buttonClick(){
-    let kosuu =document.getElementById('Purchase-number${ele.productId}');
-    let kari5 =kosuu.Value;
-    window.alert('test');
+    let kosuu =document.forms.Purchase-Number.value;
+    let kosuu2=Number.kosuu;
+    //しかしNanになってしまう
+    //let kosuu3=String(kosuu2);
+   window.alert(kosuu2);
 };
 
 //問題4
