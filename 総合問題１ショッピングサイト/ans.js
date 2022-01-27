@@ -32,7 +32,7 @@ function printSalePage(){
     <div class="box-right">
     <h2>${ele.productName}</h2>
     <span>価格：${ele.productPrice}円</span>
-    <form>
+    <form id="kari">
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
         <input class="btn" type="submit" id="test" onclick="buttonClick()" value="購入する">
@@ -50,13 +50,16 @@ function printSalePage(){
 //     window.alert('test');
 // };
 
-//.forms
+//.formsを使用
 function buttonClick(){
-    let kosuu =document.forms.Purchase-Number.value;
-    let kosuu2=Number.kosuu;
-    //しかしNanになってしまう
+    let kosuu =document.forms.kari.Purchase-Number.value;
+        
+    //上記HTMLへid="kari"を勝手に追加
+    //されど出来ず。Nan
+
     //let kosuu3=String(kosuu2);
-   window.alert(kosuu2);
+
+   window.alert(kosuu);
 };
 
 //問題4
