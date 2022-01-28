@@ -32,17 +32,16 @@ function printSalePage(){
     <div class="box-right">
     <h2>${ele.productName}</h2>
     <span>価格：${ele.productPrice}円</span>
-    <form id="kari">
+    <form>
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit" id="test" onclick="buttonClick()" value="購入する">
+        <input class="btn" type="submit"  onclick="buttonClick(${ele.productId})" value="購入する">
     </form>
     <p>${ele.comment}</p>
     </div>
     </div>`));
 }
 
-//38行目がヒント
 
 //38行にid追加
 // function buttonClick(){
@@ -50,16 +49,15 @@ function printSalePage(){
 //     window.alert('test');
 // };
 
-//.formsを使用
 function buttonClick(){
-    let kosuu =document.forms.kari.Purchase-Number.value;
-        
-    //上記HTMLへid="kari"を勝手に追加
-    //されど出来ず。Nan
+    //formsを使用
+   //let kosuu1 =document.forms.Purchase-Number.value;   
+    
+   //赤線が出てる
+   let kosuu = document.getElementById(Purchase-number${productId}).value
 
-    //let kosuu3=String(kosuu2);
 
-   window.alert(kosuu);
+   window.alert('test');
 };
 
 //問題4
