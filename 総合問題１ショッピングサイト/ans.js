@@ -43,21 +43,23 @@ function printSalePage(){
 }
 
 
-//38行にid追加
-// function buttonClick(){
-//     let kosuu =document.getElementById('test');
-//     window.alert('test');
-// };
+function buttonClick(){   
+  //予想ではテキストボックスの入力値が反映されるはず
+   let kosuu = document.getElementById(`Purchase-number${productId}`).value;
 
-function buttonClick(){
-    //formsを使用
-   //let kosuu1 =document.forms.Purchase-Number.value;   
-    
-   //赤線が出てる
-   let kosuu = document.getElementById(Purchase-number${productId}).value
+    //コンソールにて確認・・・出来ない
+    console.log(`${kosuu}`);
 
+    //当然で出ない
+   window.alert(`${kosuu}`); 
 
-   window.alert('test');
+   //再読み込みされるのを防ぎたかったが効果がない
+   return false;
+   
+   //質問；テキストボックスの入力値をアラートやコンソールに反映させたいです。
+   //考えが浮かばず手詰まりの状態です。ご教示頂けたら幸いに存じます。
+   //何卒よろしくお願いします。
+
 };
 
 //問題4
