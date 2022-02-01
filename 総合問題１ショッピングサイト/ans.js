@@ -43,22 +43,29 @@ function printSalePage(){
 }
 
 
-function buttonClick(){   
-  //予想ではテキストボックスの入力値が反映されるはず
+function buttonClick(productId){   
+  //予想ではテキストボックスの入力値が反映される
    let kosuu = document.getElementById(`Purchase-number${productId}`).value;
-
-    //コンソールにて確認・・・出来ない
-    console.log(`${kosuu}`);
-
-    //当然で出ない
-   window.alert(`${kosuu}`); 
-
-   //再読み込みされるのを防ぎたかったが効果がない
-   return false;
    
-   //質問；テキストボックスの入力値をアラートやコンソールに反映させたいです。
-   //考えが浮かばず手詰まりの状態です。ご教示頂けたら幸いに存じます。
-   //何卒よろしくお願いします。
+   //表示ok
+   //window.alert(`${kosuu}`); 
+
+   //何を何個の表示を作成、連動させなくてはならない。まずは「これ」を考える
+   window.alert(`これ${dairyProductLists[0].productName}が${kosuu}個、合計〇円です`);
+//次回forのなかにifをネスト
+for(let kari of dairyProductLists){
+        console.log(kari.expiryDate);
+}
+
+
+//予備2forで配列のオブジェクトのプロパティ呼び出し
+// console.log(expiryDateshoujun[0].expiryDate)
+// for(let kari of expiryDateshoujun){
+//      console.log(kari.expiryDate);
+// }
+
+   
+   return false;
 
 };
 
@@ -249,12 +256,6 @@ function printExpirySale(){
     }
 
 }
-
-//予備2forで配列のオブジェクトのプロパティ呼び出し
-// console.log(expiryDateshoujun[0].expiryDate)
-// for(let kari of expiryDateshoujun){
-//      console.log(kari.expiryDate);
-// }
 
 //問題4
 //購入ボタンを押すことで商品を購入する関数を作成してください。Q1表示方法　
