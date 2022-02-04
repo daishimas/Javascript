@@ -31,7 +31,7 @@ function printSalePage(){
     </div>
     <div class="box-right">
     <h2>${ele.productName}</h2>
-    <span>価格：${ele.productPrice}円　あと残り${ele.stockQuantity}個</span>
+    <span>価格：${ele.productPrice}円　在庫${ele.stockQuantity}個</span>
     <form>
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
@@ -85,16 +85,15 @@ function printExpirySale(){
     </div>
     </div>`));
 
-// for(dairyProduct of expiryDateshoujun){//forで配列を回す
-//     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;//日付の計算
-//     console.log(aaa )
-//     if(aaa<=3){//賞味期限値引きの条件
-//         dairyProduct.productPrice=dairyProduct.productPrice/2;//値引きの価格に置き換え
-//         document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `${dairyProduct.productPrice}円　半額！`
-// }else if(aaa<=7){
-//         dairyProduct.productPrice=dairyProduct.productPrice*0.8;
-//         document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `${dairyProduct.productPrice}円　２割引き！`
-// }
+for(dairyProduct of expiryDateshoujun){
+    let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;
+    console.log(aaa )
+    if(aaa<=3){         
+        document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　半額！　在庫${dairyProduct.stockQuantity}個`
+}else if(aaa<=7){     
+         document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　２割引き！　在庫${dairyProduct.stockQuantity}個`
+ }
+}
 }
 for(dairyProduct of expiryDateshoujun){//forで配列を回す
     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;//日付の計算
