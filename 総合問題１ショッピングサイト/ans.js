@@ -87,7 +87,7 @@ function printExpirySale(){
 
 for(dairyProduct of expiryDateshoujun){
     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;
-    console.log(aaa )
+    //console.log(aaa )
     if(aaa<=3){         
         document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　半額！　在庫${dairyProduct.stockQuantity}個`
 }else if(aaa<=7){     
@@ -97,7 +97,7 @@ for(dairyProduct of expiryDateshoujun){
 }
 for(dairyProduct of expiryDateshoujun){//forで配列を回す
     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;//日付の計算
-    console.log(aaa )
+    //console.log(aaa )
     if(aaa<=3){//賞味期限値引きの条件
         dairyProduct.productPrice=dairyProduct.productPrice/2;//値引きの価格に置き換え
         
