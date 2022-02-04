@@ -100,10 +100,10 @@ for(dairyProduct of expiryDateshoujun){//forで配列を回す
     console.log(aaa )
     if(aaa<=3){//賞味期限値引きの条件
         dairyProduct.productPrice=dairyProduct.productPrice/2;//値引きの価格に置き換え
-        document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `${dairyProduct.productPrice}円　半額！`
+        
 }else if(aaa<=7){
         dairyProduct.productPrice=dairyProduct.productPrice*0.8;
-        document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `${dairyProduct.productPrice}円　２割引き！`
+        
 }
 }
 
