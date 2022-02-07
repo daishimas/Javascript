@@ -22,6 +22,7 @@ const dairyProductLists =[{
 ];
 const NOWDATE = "2021/10/1";
 
+////元のデータ（ページ開いてすぐ）////
 function printSalePage(){
     dairyProductLists.forEach(ele => container.insertAdjacentHTML('beforeend',`
     <div class="itembox">
@@ -35,7 +36,7 @@ function printSalePage(){
     <form>
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit"  onclick="buttonClick(${ele.productId})" value="購入する">
+        <input class="btn" type="submit"  onclick="purchaseProduct(${ele.productId})" value="購入する">
     </form>
     <p>${ele.comment}</p>
     </div>
@@ -44,20 +45,13 @@ function printSalePage(){
 
 printSalePage()
 
-
-
-
-//問題１
-//消費期限(expiryDate)が近いものから順番に並べ替えて表示する関数printExpirySale()を作成してください。
-//HTMLのボタンに割り当ててあるので、実際に動作するか確認すること。
-
-
+////賞味期限順////
 let expiryDateshoujun = JSON.parse(JSON.stringify(dairyProductLists));//配列データを複製
 
 expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate));//new Dateで型の変形、並び替え
 
+//関数（「賞味期限順にする」ボタンに割り当て）
 function printExpirySale(){
-
     function deleteSalePage(){
         let ele = document.getElementById("container")
         while( ele.firstChild ){
@@ -75,17 +69,55 @@ function printExpirySale(){
     </div>
     <div class="box-right">
     <h2>${ele.productName}</h2>
-    <span id="waribiki${ele.productId}">価格：${ele.productPrice}円</span>
+    <span id="waribiki${ele.productId}">価格：${ele.productPrice}円　在庫${ele.stockQuantity}個</span>
     <form>
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit" onclick="buttonClick2(${ele.productId})" value="購入する">
+        <input class="btn" type="submit" onclick="purchaseProduct(${ele.productId})" value="購入する">
+    </form>
+    <p>${ele.comment}</p>
+    </div>
+    </div>`));
+}
+
+////安売りモード////
+let expiryDateshoujun2 = JSON.parse(JSON.stringify(dairyProductLists));//配列データを複製
+
+expiryDateshoujun2.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate));//new Dateで型の変形、並び替え
+
+//トグルスイッチに割りあて→もとに戻す方法、購入時の計算反映
+const toggle = document.getElementById("check");
+
+toggle.addEventListener('click', function printExpirySale(){
+
+    function deleteSalePage(){
+        let ele = document.getElementById("container")
+        while( ele.firstChild ){
+            ele.removeChild( ele.firstChild );
+          }
+    }//子要素を削除する関数
+    
+    deleteSalePage()   
+
+    expiryDateshoujun2.forEach(ele => container.insertAdjacentHTML('beforeend',`
+    <div class="itembox">
+    <div class="box-left">
+    <p>${ele.productCategory}</p>
+    <img src="${ele.src}">
+    </div>
+    <div class="box-right">
+    <h2>${ele.productName}</h2>
+    <span id="waribiki${ele.productId}">価格：${ele.productPrice}円　在庫${ele.stockQuantity}個</span>
+    <form>
+        <label for="Purchase-number">個数</label>
+        <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
+        <input class="btn" type="submit" onclick="purchaseProduct2(${ele.productId})" value="購入する">
     </form>
     <p>${ele.comment}</p>
     </div>
     </div>`));
 
-for(dairyProduct of expiryDateshoujun){
+for(dairyProduct of expiryDateshoujun2){
     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;
     //console.log(aaa )
     if(aaa<=3){         
@@ -94,8 +126,9 @@ for(dairyProduct of expiryDateshoujun){
          document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　２割引き！　在庫${dairyProduct.stockQuantity}個`
  }
 }
-}
-for(dairyProduct of expiryDateshoujun){//forで配列を回す
+}, false);
+
+for(dairyProduct of expiryDateshoujun2){//forで配列を回す
     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;//日付の計算
     //console.log(aaa )
     if(aaa<=3){//賞味期限値引きの条件
@@ -107,11 +140,9 @@ for(dairyProduct of expiryDateshoujun){//forで配列を回す
 }
 }
 
-//問題2
-//順番を並び替えた状態から元に戻せるようにしてください。
-//HTMLのボタンに割り当てること。
 
-function motonimodosu(){
+//元に戻す（ボタンに割り当て）
+function printSalePage(){
 
     //子要素を削除する関数を作る
     function deleteSalePage(){
@@ -131,11 +162,11 @@ function motonimodosu(){
     </div>
     <div class="box-right">
     <h2>${ele.productName}</h2>
-    <span>価格：${ele.productPrice}円</span>
+    <span>価格：${ele.productPrice}円　在庫${ele.stockQuantity}個</span>
     <form>
         <label for="Purchase-number">個数</label>
         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit" onclick="buttonClick(${ele.productId})" value="購入する">
+        <input class="btn" type="submit" onclick="purchaseProduct(${ele.productId})" value="購入する">
     </form>
     <p>${ele.comment}</p>
     </div>
@@ -144,7 +175,7 @@ function motonimodosu(){
 
 
 //ボタンクリック（平時）会計
-function buttonClick(productId){
+function purchaseProduct(productId){
     let kosuu = document.getElementById(`Purchase-number${productId}`).value;
     
     for(let i=0 ; i<=dairyProductLists.length;i=i+1){
@@ -161,21 +192,32 @@ function buttonClick(productId){
     } 
 
 //ボタンクリック（値引き時）会計
-function buttonClick2(productId){
-        let kosuu = document.getElementById(`Purchase-number${productId}`).value;
-        
-        for(let i=0 ; i<=expiryDateshoujun.length;i=i+1){
-                if(expiryDateshoujun[i].productId===productId && kosuu<=expiryDateshoujun[i].stockQuantity){ 
-                let calc=kosuu*expiryDateshoujun[i].productPrice;
-                if(window.confirm(`${expiryDateshoujun[i].productName}が${kosuu}個ですね。合計${calc}円です。購入するか？`)){
-                    window.alert(`購入しました！`)
-                }else{
-                    window.alert(`キャンセルしました・・・。`)
-                }
-            }else if(expiryDateshoujun[i].productId===productId && kosuu>=expiryDateshoujun[i].stockQuantity){
+function purchaseProduct2(productId){
+    let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+     
+    for(let i=0 ; i<=expiryDateshoujun.length;i=i+1){
+            if(expiryDateshoujun[i].productId===productId && kosuu<=expiryDateshoujun[i].stockQuantity){ 
+            let calc=kosuu*expiryDateshoujun[i].productPrice;
+            if(window.confirm(`${expiryDateshoujun[i].productName}が${kosuu}個ですね。合計${calc}円です。購入するか？`)){
+                 window.alert(`購入しました！`)
+            }else{
+                 window.alert(`キャンセルしました・・・。`)
+            }
+           }else if(expiryDateshoujun[i].productId===productId && kosuu>=expiryDateshoujun[i].stockQuantity){
             window.alert(`在庫以上の注文です。`)}
             }
         } 
+
+
+
+
+//問題１
+//消費期限(expiryDate)が近いものから順番に並べ替えて表示する関数printExpirySale()を作成してください。
+//HTMLのボタンに割り当ててあるので、実際に動作するか確認すること。
+
+//問題2
+//順番を並び替えた状態から元に戻せるようにしてください。
+//HTMLのボタンに割り当てること。
 
 //問題3
 //消費期限順に並び変えた上で、消費期限が3日以内の商品は半額、一週間以内のものは2割引きとして表示しなおす関数を作成してください。
@@ -194,3 +236,59 @@ function buttonClick2(productId){
 //それぞれの商品で入力した個数を基に合計金額を算出する関数を作成してください。
 //在庫以上の注文についてはアラートを表示し、ユーザーに注意喚起するようにしてください。
 //HTMLのボタンに割り当てること。
+
+//予備ホカン
+// let expiryDateshoujun = JSON.parse(JSON.stringify(dairyProductLists));//配列データを複製
+
+// expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate));//new Dateで型の変形、並び替え
+
+// function printExpirySale(){
+
+//     function deleteSalePage(){
+//         let ele = document.getElementById("container")
+//         while( ele.firstChild ){
+//             ele.removeChild( ele.firstChild );
+//           }
+//     }//子要素を削除する関数
+    
+//     deleteSalePage()   
+
+//     expiryDateshoujun.forEach(ele => container.insertAdjacentHTML('beforeend',`
+//     <div class="itembox">
+//     <div class="box-left">
+//     <p>${ele.productCategory}</p>
+//     <img src="${ele.src}">
+//     </div>
+//     <div class="box-right">
+//     <h2>${ele.productName}</h2>
+//     <span id="waribiki${ele.productId}">価格：${ele.productPrice}円</span>
+//     <form>
+//         <label for="Purchase-number">個数</label>
+//         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
+//         <input class="btn" type="submit" onclick="buttonClick2(${ele.productId})" value="購入する">
+//     </form>
+//     <p>${ele.comment}</p>
+//     </div>
+//     </div>`));
+
+// for(dairyProduct of expiryDateshoujun){
+//     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;
+//     //console.log(aaa )
+//     if(aaa<=3){         
+//         document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　半額！　在庫${dairyProduct.stockQuantity}個`
+// }else if(aaa<=7){     
+//          document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　２割引き！　在庫${dairyProduct.stockQuantity}個`
+//  }
+// }
+// }
+// for(dairyProduct of expiryDateshoujun){//forで配列を回す
+//     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;//日付の計算
+//     //console.log(aaa )
+//     if(aaa<=3){//賞味期限値引きの条件
+//         dairyProduct.productPrice=dairyProduct.productPrice/2;//値引きの価格に置き換え
+        
+// }else if(aaa<=7){
+//         dairyProduct.productPrice=dairyProduct.productPrice*0.8;
+        
+// }
+// }
