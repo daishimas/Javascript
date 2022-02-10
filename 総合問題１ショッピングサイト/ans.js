@@ -42,6 +42,26 @@ function printSalePage(){
     </div>
     </div>`));
 }
+function accountingTotal(){
+    
+     
+     for(let i = 0 ; i <= dairyProductLists.length ; i = i + 1){
+        let kosuu = document.getElementById(`Purchase-number${dairyProductLists.productId}`).value;
+        if(dairyProductLists[i].productId===productId && kosuu > 0 && kosuu<=dairyProductLists[i].stockQuantity){ 
+            let calc = kosuu * dairyProductLists[i].productPrice;
+            if(window.confirm(`${dairyProductLists[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
+                window.alert(`購入しました！`)
+            }else{
+                window.alert(`キャンセルしました・・・。`)
+            }
+        }else if(dairyProductLists[i].productId===productId && kosuu>=dairyProductLists[i].stockQuantity){
+            window.alert(`在庫以上の注文です。`)
+        }else if(dairyProductLists[i].productId === productId && kosuu <= 0 ){
+            window.alert(`1個以上のご注文をお願いします`)
+            }
+       } 
+    }
+    
 
 function reloadPage(){ location.reload()};//平時の画面に戻る
 
@@ -135,6 +155,8 @@ function printExpirySale2(){
             document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　２割引き！　在庫${dairyProduct.stockQuantity}個`
         }
     }
+
+
 }
 
 function discountPrice(){
@@ -192,26 +214,29 @@ function purchaseProduct2(productId){
         } 
     }
     
-////(単品購入ボタン)////
+////(単品購入ボタンここまで)////
 
-function accountingTotal(){
-    let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+// function accountingTotal(){
+//     let productId = dairyProductLists[0].productId;
+//     console.log(productId);
+//     // let kosuu = document.getElementById(`Purchase-number${productId}`).value;
     
-    for(let i = 0 ; i <= expiryDateshoujun2.length ; i = i + 1){
-        if(expiryDateshoujun2[i].productId===productId && kosuu > 0 && kosuu<=expiryDateshoujun2[i].stockQuantity){ 
-            let calc = kosuu * expiryDateshoujun2[i].productPrice;
-            if(window.confirm(`${expiryDateshoujun2[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
-                window.alert(`購入しました！`)
-            }else{
-                window.alert(`キャンセルしました・・・。`)
-            }
-        }else if(expiryDateshoujun2[i].productId===productId && kosuu>=expiryDateshoujun[i].stockQuantity){
-            window.alert(`在庫以上の注文です。`)
-        }else if(expiryDateshoujun2[i].productId === productId && kosuu <= 0 ){
-            window.alert(`1個以上のご注文をお願いします`)
-            }
-        } 
-    }
+//     // for(let i = 0 ; i <= expiryDateshoujun2.length ; i = i + 1){
+//     //     if(expiryDateshoujun2[i].productId===productId && kosuu > 0 && kosuu<=expiryDateshoujun2[i].stockQuantity){ 
+//     //         let calc = kosuu * expiryDateshoujun2[i].productPrice;
+//     //         if(window.confirm(`${expiryDateshoujun2[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
+//     //             window.alert(`購入しました！`)
+//     //         }else{
+//     //             window.alert(`キャンセルしました・・・。`)
+//     //         }
+//     //     }else if(expiryDateshoujun2[i].productId===productId && kosuu>=expiryDateshoujun[i].stockQuantity){
+//     //         window.alert(`在庫以上の注文です。`)
+//     //     }else if(expiryDateshoujun2[i].productId === productId && kosuu <= 0 ){
+//     //         window.alert(`1個以上のご注文をお願いします`)
+//     //         }
+//     //     } 
+//     }
+
 
 ////まとめて購入ボタン////
 //取得できない
@@ -219,15 +244,6 @@ function accountingTotal(){
 //それぞれ作らなければならないのではないか？
 
 
-// let kosuu2 = document.getElementById(`Purchase-number${productId}`).value;
-// function accountingTotal(){
-//     console.log(`${kosuu2}`);
-//     for(kari of dairyProductLists){
-//         console.log(kari);
-//     }
-//     window.alert(`test`)
-
-// }
 
 
 //問題１
