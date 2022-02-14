@@ -42,28 +42,59 @@ function printSalePage(){
     </div>
     </div>`));
 }
+
+
+///アラートにまとめて表示させたい
 function accountingTotal(){
-    
-     
-     for(let i = 0 ; i <= dairyProductLists.length ; i = i + 1){
-        let kosuu = document.getElementById(`Purchase-number${dairyProductLists.productId}`).value;
-        if(dairyProductLists[i].productId===productId && kosuu > 0 && kosuu<=dairyProductLists[i].stockQuantity){ 
-            let calc = kosuu * dairyProductLists[i].productPrice;
-            if(window.confirm(`${dairyProductLists[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
-                window.alert(`購入しました！`)
-            }else{
-                window.alert(`キャンセルしました・・・。`)
-            }
-        }else if(dairyProductLists[i].productId===productId && kosuu>=dairyProductLists[i].stockQuantity){
-            window.alert(`在庫以上の注文です。`)
-        }else if(dairyProductLists[i].productId === productId && kosuu <= 0 ){
-            window.alert(`1個以上のご注文をお願いします`)
-            }
-       } 
+    for(kari of dairyProductLists){
+        let bbb = kari.productId
+        console.log(bbb);
+        
     }
+    let aaa = JSON.stringify(bbb);
+        window.alert(aaa);
     
 
+    // for(let i = 0 ; i <= dairyProductLists.length ; i = i + 1){
+    //     let productId = dairyProductLists[i].productId;
+    //     let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+    //     if(dairyProductLists[i].productId===productId && kosuu > 0 && kosuu<=dairyProductLists[i].stockQuantity){ 
+    //         let calc = kosuu * dairyProductLists[i].productPrice;
+    //         if(window.confirm(`${dairyProductLists[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
+    //             window.alert(`購入しました！`)
+    //         }else{
+    //             window.alert(`キャンセルしました・・・。`)
+    //         }
+    //     }else if(dairyProductLists[i].productId===productId && kosuu>=dairyProductLists[i].stockQuantity){
+    //         window.alert(`在庫以上の注文です。`)
+    //     }else if(dairyProductLists[i].productId === productId && kosuu <= 0 ){
+    //         window.alert(`1個以上のご注文をお願いします`)
+    //         }
+    //    }
+
+    // for(let i = 0 ; i <= dairyProductLists.length ; i = i + 1){
+    //     let productId = dairyProductLists[i].productId;
+    //     let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+    //     if(dairyProductLists[i].productId===productId && kosuu > 0 && kosuu<=dairyProductLists[i].stockQuantity){ 
+    //         let calc = kosuu * dairyProductLists[i].productPrice;
+    //         if(window.confirm(`${dairyProductLists[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
+    //             window.alert(`購入しました！`)
+    //         }else{
+    //             window.alert(`キャンセルしました・・・。`)
+    //         }
+    //     }else if(dairyProductLists[i].productId===productId && kosuu>=dairyProductLists[i].stockQuantity){
+    //         window.alert(`在庫以上の注文です。`)
+    //     }else if(dairyProductLists[i].productId === productId && kosuu <= 0 ){
+    //         window.alert(`1個以上のご注文をお願いします`)
+    //         }
+    //    }
+    }
+
+    
+//accountingTotal()
+
 function reloadPage(){ location.reload()};//平時の画面に戻る
+
 
 printSalePage()
 
