@@ -21,9 +21,11 @@ const dairyProductLists =[{
     productId: 20, productCategory: "牛乳", productName: "大山田いちご", productPrice: 200, stockQuantity: 25, expiryDate: "2021/10/2", src:"./images/milk.png", comment: "「おいしさ」も「栄養」も両方あきらめない。ワンランク上のカルシウム強化乳飲料。コップ2杯で1日分のカルシウムとビタミンD、牛乳の約2倍のMBP®をおいしく摂取できます。"}
 ];
 const NOWDATE = "2021/10/1";
+let flg = false;
 
 ////元のデータ（ページ開いてすぐ「平時の画面」）////
 function printSalePage(){
+    flg = false ;
     dairyProductLists.forEach(ele => container.insertAdjacentHTML('beforeend',`
     <div class="itembox">
     <div class="box-left">
@@ -43,76 +45,9 @@ function printSalePage(){
     </div>`));
 }
 
-function reloadPage(){ location.reload()};//平時の画面に戻る
-
 printSalePage()
 
-//ifで記載のあるものを選択する
-//きさいのないものさくじょ(suplice)→そがれた配列のできあがり
-//それを取捨選択して新しく配列を作る（push?）
-//？
-//ストリングfyでアラートに出力
-///アラートにまとめて表示させたい
-function accountingTotal(){
-    
-    let kari = JSON.parse(JSON.stringify(dairyProductLists));
-         
-    // let productId = dairyProductLists[1].productId;
-    // let kosuu = document.getElementById(`Purchase-number${productId}`).value;
-    // alert(kosuu)
-    // console.log(kosuu);
-        
-
-        for(let i = 0 ; i <= dairyProductLists.length ; i = i + 1){
-            let productId = kari[i].productId;
-            let kosuu = document.getElementById(`Purchase-number${productId}`).value;
-            if(dairyProductLists[i].productId===productId && kosuu > 0 && kosuu<=dairyProductLists[i].stockQuantity){ 
-                let calc = kosuu * dairyProductLists[i].productPrice;
-                if(window.confirm(`${dairyProductLists[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
-                    window.alert(`購入しました！`)
-                }else{
-                    window.alert(`キャンセルしました・・・。`)
-                }
-            }else if(dairyProductLists[i].productId===productId && kosuu>=dairyProductLists[i].stockQuantity){
-                kari.splice(i,1);
-            }else if(dairyProductLists[i].productId === productId && kosuu <= 0 ){
-                kari.splice(i,1);
-                }
-           }
-    //  let aaa = dairyProductLists.slice(0,2)
-            
-    //アラート表示
-            // dairyProductLists.forEach(object =>{
-            //    alert(object.productId) 
-            // })
-        
-            //alert(JSON.stringify(dairyProductLists[i]));
-
-            //for(let i = 0 ; i <= dairyProductLists.length ; i = i + 1){
-            //alert(JSON.stringify(dairyProductLists[0].productId))
-             //}
-       
-
-    // for(let i = 0 ; i <= dairyProductLists.length ; i = i + 1){
-    //     let productId = dairyProductLists[i].productId;
-    //     let kosuu = document.getElementById(`Purchase-number${productId}`).value;
-    //     if(dairyProductLists[i].productId===productId && kosuu > 0 && kosuu<=dairyProductLists[i].stockQuantity){ 
-    //         let calc = kosuu * dairyProductLists[i].productPrice;
-    //         if(window.confirm(`${dairyProductLists[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
-    //             window.alert(`購入しました！`)
-    //         }else{
-    //             window.alert(`キャンセルしました・・・。`)
-    //         }
-    //     }else if(dairyProductLists[i].productId===productId && kosuu>=dairyProductLists[i].stockQuantity){
-    //         window.alert(`在庫以上の注文です。`)
-    //     }else if(dairyProductLists[i].productId === productId && kosuu <= 0 ){
-    //         window.alert(`1個以上のご注文をお願いします`)
-    //         }
-    //    }
-    }
-
-    
-
+function reloadPage(){ location.reload()};//平時の画面に戻る
 
 //子要素を削除
 function deleteSalePage(){
@@ -129,28 +64,39 @@ let expiryDateshoujun = JSON.parse(JSON.stringify(dairyProductLists));//配列�
 expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate));//new Dateで型の変形、並び替え
 
 //関数（「賞味期限順にする」ボタンに割り当て）
+
+
 function printExpirySale(){ 
+    
+    if(flg){
+        reloadPage()
+        //deleteSalePage()
+        flg = false;
+   }
 
-    deleteSalePage()   
-
-    expiryDateshoujun.forEach(ele => container.insertAdjacentHTML('beforeend',`
-    <div class="itembox">
-    <div class="box-left">
-    <p>${ele.productCategory}</p>
-    <img src="${ele.src}">
-    </div>
-    <div class="box-right">
-    <h2>${ele.productName}</h2>
-    <span id="waribiki${ele.productId}">価格：${ele.productPrice}円　在庫${ele.stockQuantity}個</span>
-    <form>
-        <label for="Purchase-number">個数</label>
-        <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-        <input class="btn" type="submit" onclick="purchaseProduct(${ele.productId})" value="購入する">
-    </form>
-    <p>${ele.comment}</p>
-    </div>
-    </div>`));
+    deleteSalePage()
+    for(let ele of expiryDateshoujun){
+        container.insertAdjacentHTML('beforeend',`
+        <div class="itembox">
+        <div class="box-left">
+        <p>${ele.productCategory}</p>
+        <img src="${ele.src}">
+        </div>
+        <div class="box-right">
+        <h2>${ele.productName}</h2>
+        <span id="waribiki${ele.productId}">価格：${ele.productPrice}円　在庫${ele.stockQuantity}個</span>
+        <form>
+            <label for="Purchase-number">個数</label>
+            <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
+            <input class="btn" type="submit" onclick="purchaseProduct(${ele.productId})" value="購入する">
+        </form>
+        <p>${ele.comment}</p>
+        </div>
+        </div>`);
+    }
 }
+////賞味期限順（ここまで）////
+
 
 ////安売りモード////
 let expiryDateshoujun2 = JSON.parse(JSON.stringify(dairyProductLists));//配列データを複製
@@ -173,7 +119,7 @@ toggle.addEventListener('click', (event) => {
 
 //値引き表示
 function printExpirySale2(){
-    
+    flg = true;
     deleteSalePage()   
 
     expiryDateshoujun2.forEach(ele => container.insertAdjacentHTML('beforeend',`
@@ -202,8 +148,6 @@ function printExpirySale2(){
             document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　２割引き！　在庫${dairyProduct.stockQuantity}個`
         }
     }
-
-
 }
 
 function discountPrice(){
@@ -218,6 +162,7 @@ for(dairyProduct of expiryDateshoujun2){//forで配列を回す
 }
 
 discountPrice()
+////安売りモード（ここまで）////
 
 
 ////単品購入ボタン////
@@ -263,35 +208,85 @@ function purchaseProduct2(productId){
     
 ////(単品購入ボタンここまで)////
 
-// function accountingTotal(){
-//     let productId = dairyProductLists[0].productId;
-//     console.log(productId);
-//     // let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+
+////まとめて購入ボタン////
+function accountingTotal(){
     
-//     // for(let i = 0 ; i <= expiryDateshoujun2.length ; i = i + 1){
-//     //     if(expiryDateshoujun2[i].productId===productId && kosuu > 0 && kosuu<=expiryDateshoujun2[i].stockQuantity){ 
-//     //         let calc = kosuu * expiryDateshoujun2[i].productPrice;
-//     //         if(window.confirm(`${expiryDateshoujun2[i].productName}が${kosuu}個ですね。合計${calc}円です。ご購入されますか？`)){
-//     //             window.alert(`購入しました！`)
-//     //         }else{
-//     //             window.alert(`キャンセルしました・・・。`)
-//     //         }
-//     //     }else if(expiryDateshoujun2[i].productId===productId && kosuu>=expiryDateshoujun[i].stockQuantity){
-//     //         window.alert(`在庫以上の注文です。`)
-//     //     }else if(expiryDateshoujun2[i].productId === productId && kosuu <= 0 ){
-//     //         window.alert(`1個以上のご注文をお願いします`)
-//     //         }
-//     //     } 
+    //切替スイッチ//
+    let kari = [];
+    if(flg){
+         kari = JSON.parse(JSON.stringify(expiryDateshoujun2))
+    }else{
+         kari = JSON.parse(JSON.stringify(dairyProductLists))
+    }
+    //切替スイッチ（ここまで）//
+    let total = 0;//合計計算のための種→合計を足していく
+    
+    for(let i = 0 ; i < kari.length ; i = i + 1){
+        let kosuu = document.getElementById(`Purchase-number${kari[i].productId}`).value;
+        //let productId = kari[i].productId;
+        //let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+        if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
+            total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
+        }
+        if( kosuu > kari[i].stockQuantity){
+            alert(`${kari[i].productName}へのご注文は在庫内の個数にてお願いします`)
+        }
+    }
+        if(total>0){
+            if(window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
+                alert(`購入しました！`);
+            }else{
+                alert(`キャンセルしました・・・。`);
+            }
+        }
+    if(total <=0){
+            alert(`お求めの個数を入力後に「まとめて購入」ボタンを押してください。`);
+    }
+ 
+//予備
+//     let total = 0;//合計計算のための種→合計を足していく
+    
+//     for(let i = 0 ; i < kari.length ; i = i + 1){
+//         let kosuu = document.getElementById(`Purchase-number${kari[i].productId}`).value;
+//         //let productId = kari[i].productId;
+//         //let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+//         if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
+//             total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
+//         }else if( kosuu > kari[i].stockQuantity){
+//             alert(`${kari[i].productName}へのご注文は在庫内の個数にてお願いします`)
+//         }
+//     }
+//     if(total>0){
+//         if(window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
+//             alert(`購入しました！`);
+//         }else{
+//             alert(`キャンセルしました・・・。`);
+//         }
+//     }
+//  if(total <=0){
+//         alert(`お求めの個数を入力後に「まとめて購入」ボタンを押してください。`);
+//     }
+}
+
+
+//反応あり予備
+// let total = 0;//合計計算のための種→合計を足していく
+// for(let i=kari.length-1 ; 0<=i ; i-- ){
+//     total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
 //     }
 
 
-////まとめて購入ボタン////
-//取得できない
-//表示ページから取得せねばならないから、並び変えたもの、割引されたものと
-//それぞれ作らなければならないのではないか？
+////まとめて購入ボタン（ここまで）////
+// if(window.confirm(`合計金額は${total}になります。ご購入されますか？`)){
+//     window.alert(`購入しました！`)
+// }else{
+//     window.alert(`キャンセルしました・・・。`)
+// }  
 
-
-
+// else(kosuu <= 0 || kosuu === ''){
+//     window.alert(`お求めの個数を入力してください。`)}
+// }
 
 //問題１
 //消費期限(expiryDate)が近いものから順番に並べ替えて表示する関数printExpirySale()を作成してください。
@@ -319,58 +314,20 @@ function purchaseProduct2(productId){
 //在庫以上の注文についてはアラートを表示し、ユーザーに注意喚起するようにしてください。
 //HTMLのボタンに割り当てること。
 
-//予備ホカン
-// let expiryDateshoujun = JSON.parse(JSON.stringify(dairyProductLists));//配列データを複製
+//なぜこいつはエラーでるのよ→愛がないからが原因
+    // for(let i = 0 ; i < kari.length ; i = i + 1){
+    //     let productId = kari[i].productId;
+    //     let kosuu = document.getElementById(`Purchase-number${productId}`).value;
+    //     if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
+    //         let calc = kosuu * kari[i].productPrice;
+    //         alert(calc);
+    //         kari[i].productPrice = calc
+    //         console.log(kari[i].productPrice);
+    //     }else if( kosuu <= 0 || kosuu === ''){
+    //         let calc = kosuu * 0;
+    //         kari[i].productPrice = calc
+    //         console.log(kari[i].productPrice);
+    //     }
+    // }
 
-// expiryDateshoujun.sort((x,y) => new Date(x.expiryDate) - new Date(y.expiryDate));//new Dateで型の変形、並び替え
-
-// function printExpirySale(){
-
-//     function deleteSalePage(){
-//         let ele = document.getElementById("container")
-//         while( ele.firstChild ){
-//             ele.removeChild( ele.firstChild );
-//           }
-//     }//子要素を削除する関数
-    
-//     deleteSalePage()   
-
-//     expiryDateshoujun.forEach(ele => container.insertAdjacentHTML('beforeend',`
-//     <div class="itembox">
-//     <div class="box-left">
-//     <p>${ele.productCategory}</p>
-//     <img src="${ele.src}">
-//     </div>
-//     <div class="box-right">
-//     <h2>${ele.productName}</h2>
-//     <span id="waribiki${ele.productId}">価格：${ele.productPrice}円</span>
-//     <form>
-//         <label for="Purchase-number">個数</label>
-//         <input type="text" class="Purchase-number" id="Purchase-number${ele.productId}" name="Purchase-number">
-//         <input class="btn" type="submit" onclick="buttonClick2(${ele.productId})" value="購入する">
-//     </form>
-//     <p>${ele.comment}</p>
-//     </div>
-//     </div>`));
-
-// for(dairyProduct of expiryDateshoujun){
-//     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;
-//     //console.log(aaa )
-//     if(aaa<=3){         
-//         document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　半額！　在庫${dairyProduct.stockQuantity}個`
-// }else if(aaa<=7){     
-//          document.getElementById(`waribiki${dairyProduct.productId}`).innerHTML = `価格：${dairyProduct.productPrice}円　２割引き！　在庫${dairyProduct.stockQuantity}個`
-//  }
-// }
-// }
-// for(dairyProduct of expiryDateshoujun){//forで配列を回す
-//     let aaa = (Date.parse(dairyProduct.expiryDate) - Date.parse(NOWDATE))/86400000;//日付の計算
-//     //console.log(aaa )
-//     if(aaa<=3){//賞味期限値引きの条件
-//         dairyProduct.productPrice=dairyProduct.productPrice/2;//値引きの価格に置き換え
-        
-// }else if(aaa<=7){
-//         dairyProduct.productPrice=dairyProduct.productPrice*0.8;
-        
-// }
-// }
+     //console.log(kari)  
