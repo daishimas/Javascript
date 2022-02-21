@@ -223,72 +223,28 @@ function accountingTotal(){
 
     let total = 0;//合計計算のための種→合計を足していくため
     
-    //①合計金額の計算および在庫以上の注文判別（forで回して加算）
-            for(let i = 0 ; i < kari.length ; i = i + 1){
-            let kosuu = document.getElementById(`Purchase-number${kari[i].productId}`).value;
-            if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
-                total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
-            }else if( kosuu > kari[i].stockQuantity){
-                alert(`${kari[i].productName}へのご注文は在庫内の個数にてお願いします`)
+    //合計金額の計算および在庫以上の注文判別（forで回して加算、在庫を超す注文数はfalseにて処理中断）
+    for(let i = 0 ; i < kari.length ; i = i + 1){
+        let kosuu = document.getElementById(`Purchase-number${kari[i].productId}`).value;
+         if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
+            total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
+        }else if( kosuu > kari[i].stockQuantity){
+            alert(`${kari[i].productName}へのご注文は在庫内の個数にてお願いします`)
+            return false;
             }
         }
-//わからないところ：totalが0より上の金額で、在庫以上の注文がない場合（①の条件をクリアしたら）表示したい。
-                // ①の条件がクリアできなかった場合、合計金額の表示は出さない、しかし、0の場合はアラートを出す。
-        if(total>0){
-            if(window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
-                alert(`購入しました！`);
-            }else{
-                alert(`キャンセルしました・・・。`);
-            }
+
+    if( total > 0 ){
+        if(window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
+            alert(`購入しました！`);
+        }else{
+            alert(`キャンセルしました・・・。`);
         }
-     if(total <=0){
+    }else if( total <= 0 ){
             alert(`お求めの個数を入力後に「まとめて購入」ボタンを押してください。`);
         }
-    
- 
-//予備
-//     let total = 0;//合計計算のための種→合計を足していく
-    
-//     for(let i = 0 ; i < kari.length ; i = i + 1){
-//         let kosuu = document.getElementById(`Purchase-number${kari[i].productId}`).value;
-//         //let productId = kari[i].productId;
-//         //let kosuu = document.getElementById(`Purchase-number${productId}`).value;
-//         if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
-//             total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
-//         }else if( kosuu > kari[i].stockQuantity){
-//             alert(`${kari[i].productName}へのご注文は在庫内の個数にてお願いします`)
-//         }
-//     }
-//     if(total>0){
-//         if(window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
-//             alert(`購入しました！`);
-//         }else{
-//             alert(`キャンセルしました・・・。`);
-//         }
-//     }
-//  if(total <=0){
-//         alert(`お求めの個数を入力後に「まとめて購入」ボタンを押してください。`);
-//     }
 }
-
-
-//反応あり予備
-// let total = 0;//合計計算のための種→合計を足していく
-// for(let i=kari.length-1 ; 0<=i ; i-- ){
-//     total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
-//     }
-
-
 ////まとめて購入ボタン（ここまで）////
-// if(window.confirm(`合計金額は${total}になります。ご購入されますか？`)){
-//     window.alert(`購入しました！`)
-// }else{
-//     window.alert(`キャンセルしました・・・。`)
-// }  
-
-// else(kosuu <= 0 || kosuu === ''){
-//     window.alert(`お求めの個数を入力してください。`)}
-// }
 
 //問題１
 //消費期限(expiryDate)が近いものから順番に並べ替えて表示する関数printExpirySale()を作成してください。
