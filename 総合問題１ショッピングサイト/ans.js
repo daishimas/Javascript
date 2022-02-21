@@ -220,19 +220,20 @@ function accountingTotal(){
          kari = JSON.parse(JSON.stringify(dairyProductLists))
     }
     //切替スイッチ（ここまで）//
-    let total = 0;//合計計算のための種→合計を足していく
+
+    let total = 0;//合計計算のための種→合計を足していくため
     
-    for(let i = 0 ; i < kari.length ; i = i + 1){
-        let kosuu = document.getElementById(`Purchase-number${kari[i].productId}`).value;
-        //let productId = kari[i].productId;
-        //let kosuu = document.getElementById(`Purchase-number${productId}`).value;
-        if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
-            total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
+    //①合計金額の計算および在庫以上の注文判別（forで回して加算）
+            for(let i = 0 ; i < kari.length ; i = i + 1){
+            let kosuu = document.getElementById(`Purchase-number${kari[i].productId}`).value;
+            if( kosuu > 0 &&  kosuu <= kari[i].stockQuantity){
+                total = kari[i].productPrice * document.getElementById(`Purchase-number${kari[i].productId}`).value + total;
+            }else if( kosuu > kari[i].stockQuantity){
+                alert(`${kari[i].productName}へのご注文は在庫内の個数にてお願いします`)
+            }
         }
-        if( kosuu > kari[i].stockQuantity){
-            alert(`${kari[i].productName}へのご注文は在庫内の個数にてお願いします`)
-        }
-    }
+//わからないところ：totalが0より上の金額で、在庫以上の注文がない場合（①の条件をクリアしたら）表示したい。
+                // ①の条件がクリアできなかった場合、合計金額の表示は出さない、しかし、0の場合はアラートを出す。
         if(total>0){
             if(window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
                 alert(`購入しました！`);
@@ -240,9 +241,10 @@ function accountingTotal(){
                 alert(`キャンセルしました・・・。`);
             }
         }
-    if(total <=0){
+     if(total <=0){
             alert(`お求めの個数を入力後に「まとめて購入」ボタンを押してください。`);
-    }
+        }
+    
  
 //予備
 //     let total = 0;//合計計算のための種→合計を足していく
@@ -314,7 +316,7 @@ function accountingTotal(){
 //在庫以上の注文についてはアラートを表示し、ユーザーに注意喚起するようにしてください。
 //HTMLのボタンに割り当てること。
 
-//なぜこいつはエラーでるのよ→愛がないからが原因
+//なぜこいつはエラーでるのよ→iがないからが原因
     // for(let i = 0 ; i < kari.length ; i = i + 1){
     //     let productId = kari[i].productId;
     //     let kosuu = document.getElementById(`Purchase-number${productId}`).value;
