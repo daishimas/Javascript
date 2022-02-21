@@ -235,7 +235,7 @@ function accountingTotal(){
         }
 
     if( total > 0 ){
-        if(window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
+        if( window.confirm(`合計金額が${total}円です。ご購入されますか？`)){
             alert(`購入しました！`);
         }else{
             alert(`キャンセルしました・・・。`);
